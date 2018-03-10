@@ -7,7 +7,9 @@ package Form;
 
 import Dados.BancoDadosCliente;
 import Modelo.Aluno;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
@@ -374,7 +376,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btRemoverActionPerformed
 
     private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
-        
+        List<Aluno> res;
+        res = banco.getAlunos();
+        for(Aluno a : res){
+            res.toString();
+        }
     }//GEN-LAST:event_btListarActionPerformed
 
     /**
