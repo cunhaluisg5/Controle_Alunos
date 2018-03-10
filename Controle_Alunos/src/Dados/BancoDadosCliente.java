@@ -29,12 +29,13 @@ public class BancoDadosCliente {
     }
     
     public Aluno getAluno(int matricula){
+        Aluno res = null;
         for(Aluno a : aluno){
-            if(a.getNum_matricula().equals(matricula)){
-                return a;
+            if(a.getNum_matricula() == matricula){
+                res = a;
             }
         }
-        return null;
+        return res;
     }
     
     public List getAlunos(){

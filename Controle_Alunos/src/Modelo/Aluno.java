@@ -10,7 +10,7 @@ package Modelo;
  * @author Luís Gustavo
  */
 public class Aluno {
-    private String num_matricula;
+    private int num_matricula;
     private String nome;
     private double valor_mensalidade;
     private String data_ingresso;
@@ -22,7 +22,7 @@ public class Aluno {
     public Aluno() {
     }
 
-    public Aluno(String num_matricula, String nome, double valor_mensalidade, String data_ingresso, String periodo, String curso, String email, String senha) {
+    public Aluno(int num_matricula, String nome, double valor_mensalidade, String data_ingresso, String periodo, String curso, String email, String senha) {
         this.num_matricula = num_matricula;
         this.nome = nome;
         this.valor_mensalidade = valor_mensalidade;
@@ -33,11 +33,11 @@ public class Aluno {
         this.senha = senha;
     }
 
-    public String getNum_matricula() {
+    public int getNum_matricula() {
         return num_matricula;
     }
 
-    public void setNum_matricula(String num_matricula) {
+    public void setNum_matricula(int num_matricula) {
         this.num_matricula = num_matricula;
     }
 

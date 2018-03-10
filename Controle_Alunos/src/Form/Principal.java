@@ -19,7 +19,7 @@ import javax.swing.JRadioButton;
  */
 public class Principal extends javax.swing.JFrame {
     Aluno aluno;
-    BancoDadosCliente banco;
+    BancoDadosCliente banco = new BancoDadosCliente();
     
     public Principal() {
         initComponents();
@@ -141,7 +141,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(pnCursoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(rdAdministracao)
-                .addGap(26, 26, 26)
+                .addGap(43, 43, 43)
                 .addComponent(rdInformatica)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(rdPedagogia)
@@ -341,7 +341,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         aluno = new Aluno();
-        aluno.setNum_matricula(tfMatricula.getText());
+        aluno.setNum_matricula(Integer.parseInt(tfMatricula.getText()));
         aluno.setNome(tfNome.getText());
         aluno.setData_ingresso(tfIngresso.getText());
         aluno.setPeriodo(cbPeriodo.getSelectedItem().toString());
@@ -356,7 +356,6 @@ public class Principal extends javax.swing.JFrame {
         aluno.setEmail(tfEmail.getText());
         aluno.setSenha(tfSenha.getText());
         
-        banco = new BancoDadosCliente();
         banco.addAluno(aluno);
     }//GEN-LAST:event_btAdicionarActionPerformed
 
@@ -368,18 +367,26 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btReajusteActionPerformed
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        banco.getAluno(Integer.parseInt(tfMatricula.getText()));
+        Aluno res;
+        res = banco.getAluno(Integer.parseInt(tfMatricula.getText()));
+        if(res != null){
+            JOptionPane.showMessageDialog(null, res.toString(), "Informação do aluno", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "Não existe este aluno cadastrado!", "Informação do aluno", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
         banco.removeAluno(banco.getAluno(Integer.parseInt(tfMatricula.getText())));
+        JOptionPane.showMessageDialog(null, aluno.getNome() + " removido com sucesso!", "Remoção de aluno", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btRemoverActionPerformed
 
     private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
         List<Aluno> res;
         res = banco.getAlunos();
+        JOptionPane.showMessageDialog(null, res.size(), "Aluno", JOptionPane.INFORMATION_MESSAGE);
         for(Aluno a : res){
-            res.toString();
+            taListar.setText(a.toString());
         }
     }//GEN-LAST:event_btListarActionPerformed
 
