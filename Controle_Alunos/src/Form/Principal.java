@@ -73,6 +73,11 @@ public class Principal extends javax.swing.JFrame {
         btBuscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btBuscar.setText("Buscar");
         btBuscar.setName("btBuscar"); // NOI18N
+        btBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBuscarActionPerformed(evt);
+            }
+        });
 
         lbNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbNome.setText("Nome");
@@ -332,6 +337,10 @@ public class Principal extends javax.swing.JFrame {
         aluno.reajustarMensalidade(Integer.parseInt(resultado));
         JOptionPane.showMessageDialog(null, "A mensalidade é " + aluno.getValor_mensalidade(), "Mensalidade", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btReajusteActionPerformed
+
+    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
+        banco.getAluno(Integer.parseInt(tfMatricula.getText()));
+    }//GEN-LAST:event_btBuscarActionPerformed
 
     /**
      * @param args the command line arguments
