@@ -7,6 +7,7 @@ package Form;
 
 import Modelo.Aluno;
 import java.util.Enumeration;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 /**
@@ -82,6 +83,11 @@ public class Principal extends javax.swing.JFrame {
         btReajuste.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btReajuste.setText("Aplicar Reajuste");
         btReajuste.setName("btReajuste"); // NOI18N
+        btReajuste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btReajusteActionPerformed(evt);
+            }
+        });
 
         lbIngresso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbIngresso.setText("Data de Ingresso");
@@ -314,6 +320,13 @@ public class Principal extends javax.swing.JFrame {
         aluno.setEmail(tfEmail.getText());
         aluno.setSenha(tfSenha.getText());
     }//GEN-LAST:event_btAdicionarActionPerformed
+
+    private void btReajusteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReajusteActionPerformed
+        String resultado;
+        resultado = JOptionPane.showInputDialog(null, "Informe o valor!");
+        aluno.reajustarMensalidade(Integer.parseInt(resultado));
+        JOptionPane.showMessageDialog(null, "A mensalidade é " + aluno.getValor_mensalidade(), "Mensalidade", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btReajusteActionPerformed
 
     /**
      * @param args the command line arguments
