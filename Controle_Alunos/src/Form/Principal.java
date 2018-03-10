@@ -5,15 +5,17 @@
  */
 package Form;
 
+import Modelo.Aluno;
+import java.util.Enumeration;
+import javax.swing.JRadioButton;
+
 /**
  *
  * @author Luís Gustavo
  */
 public class Principal extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Principal
-     */
+    Aluno aluno;
+    
     public Principal() {
         initComponents();
     }
@@ -195,16 +197,16 @@ public class Principal extends javax.swing.JFrame {
         btAdicionar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btAdicionar.setText("Adicionar");
         btAdicionar.setName("btAdicionar"); // NOI18N
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarActionPerformed(evt);
+            }
+        });
 
         btRemover.setBackground(new java.awt.Color(204, 204, 255));
         btRemover.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btRemover.setText("Remover");
         btRemover.setName("btRemover"); // NOI18N
-        btRemover.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btRemoverActionPerformed(evt);
-            }
-        });
 
         btListar.setBackground(new java.awt.Color(204, 204, 255));
         btListar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -295,9 +297,23 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btRemoverActionPerformed
+    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
+        aluno = new Aluno();
+        aluno.setNum_matricula(tfMatricula.getText());
+        aluno.setNome(tfNome.getText());
+        aluno.setData_ingresso(tfIngresso.getText());
+        aluno.setPeriodo(cbPeriodo.getSelectedItem().toString());
+        JRadioButton radio;
+        Enumeration jr = grCurso.getElements();
+        while ( jr.hasMoreElements() )
+        {
+            radio = (JRadioButton) jr.nextElement();
+            if (radio.isSelected())
+              aluno.setCurso(radio.getText());
+        }
+        aluno.setEmail(tfEmail.getText());
+        aluno.setSenha(tfSenha.getText());
+    }//GEN-LAST:event_btAdicionarActionPerformed
 
     /**
      * @param args the command line arguments
