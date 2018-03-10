@@ -5,6 +5,7 @@
  */
 package Form;
 
+import Dados.BancoDadosCliente;
 import Modelo.Aluno;
 import java.util.Enumeration;
 import javax.swing.JOptionPane;
@@ -16,6 +17,7 @@ import javax.swing.JRadioButton;
  */
 public class Principal extends javax.swing.JFrame {
     Aluno aluno;
+    BancoDadosCliente banco;
     
     public Principal() {
         initComponents();
@@ -319,6 +321,9 @@ public class Principal extends javax.swing.JFrame {
         }
         aluno.setEmail(tfEmail.getText());
         aluno.setSenha(tfSenha.getText());
+        
+        banco = new BancoDadosCliente();
+        banco.addAluno(aluno);
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btReajusteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReajusteActionPerformed
