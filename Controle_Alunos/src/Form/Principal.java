@@ -220,6 +220,11 @@ public class Principal extends javax.swing.JFrame {
         btRemover.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btRemover.setText("Remover");
         btRemover.setName("btRemover"); // NOI18N
+        btRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoverActionPerformed(evt);
+            }
+        });
 
         btListar.setBackground(new java.awt.Color(204, 204, 255));
         btListar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -341,6 +346,10 @@ public class Principal extends javax.swing.JFrame {
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         banco.getAluno(Integer.parseInt(tfMatricula.getText()));
     }//GEN-LAST:event_btBuscarActionPerformed
+
+    private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
+        banco.removeAluno(banco.getAluno(Integer.parseInt(tfMatricula.getText())));
+    }//GEN-LAST:event_btRemoverActionPerformed
 
     /**
      * @param args the command line arguments

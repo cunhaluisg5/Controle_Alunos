@@ -442,6 +442,9 @@
         <Property name="text" type="java.lang.String" value="Remover"/>
         <Property name="name" type="java.lang.String" value="btRemover" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRemoverActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btListar">
       <Properties>
