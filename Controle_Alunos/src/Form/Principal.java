@@ -176,6 +176,11 @@ public class Principal extends javax.swing.JFrame {
 
         tfSenha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tfSenha.setName("tfSenha"); // NOI18N
+        tfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfSenhaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,6 +218,7 @@ public class Principal extends javax.swing.JFrame {
         btAdicionar.setBackground(new java.awt.Color(204, 204, 255));
         btAdicionar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btAdicionar.setText("Adicionar");
+        btAdicionar.setEnabled(false);
         btAdicionar.setName("btAdicionar"); // NOI18N
         btAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,6 +239,7 @@ public class Principal extends javax.swing.JFrame {
         btListar.setBackground(new java.awt.Color(204, 204, 255));
         btListar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btListar.setText("Listar");
+        btListar.setEnabled(false);
         btListar.setName("btListar"); // NOI18N
         btListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -340,23 +347,26 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-        aluno = new Aluno();
-        aluno.setNum_matricula(Integer.parseInt(tfMatricula.getText()));
-        aluno.setNome(tfNome.getText());
-        aluno.setData_ingresso(tfIngresso.getText());
-        aluno.setPeriodo(cbPeriodo.getSelectedItem().toString());
-        JRadioButton radio;
-        Enumeration jr = grCurso.getElements();
-        while ( jr.hasMoreElements() )
-        {
-            radio = (JRadioButton) jr.nextElement();
-            if (radio.isSelected())
-              aluno.setCurso(radio.getText());
+        if(!tfSenha.getText().isEmpty() && tfSenha.getText().trim() != null){
+            aluno = new Aluno();
+            aluno.setNum_matricula(Integer.parseInt(tfMatricula.getText()));
+            aluno.setNome(tfNome.getText());
+            aluno.setData_ingresso(tfIngresso.getText());
+            aluno.setPeriodo(cbPeriodo.getSelectedItem().toString());
+            JRadioButton radio;
+            Enumeration jr = grCurso.getElements();
+            while ( jr.hasMoreElements() )
+            {
+                radio = (JRadioButton) jr.nextElement();
+                if (radio.isSelected())
+                  aluno.setCurso(radio.getText());
+            }
+            aluno.setEmail(tfEmail.getText());
+            aluno.setSenha(tfSenha.getText());
+
+            banco.addAluno(aluno);
+            btListar.setEnabled(true);
         }
-        aluno.setEmail(tfEmail.getText());
-        aluno.setSenha(tfSenha.getText());
-        
-        banco.addAluno(aluno);
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btReajusteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReajusteActionPerformed
@@ -389,6 +399,12 @@ public class Principal extends javax.swing.JFrame {
             taListar.setText(a.toString());
         }
     }//GEN-LAST:event_btListarActionPerformed
+
+    private void tfSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSenhaKeyTyped
+        if(tfSenha.getText().length() > 0){
+            btAdicionar.setEnabled(true);
+        }
+    }//GEN-LAST:event_tfSenhaKeyTyped
 
     /**
      * @param args the command line arguments

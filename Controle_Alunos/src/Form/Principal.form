@@ -426,6 +426,9 @@
             </Property>
             <Property name="name" type="java.lang.String" value="tfSenha" noResource="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfSenhaKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -438,6 +441,7 @@
           <Font name="Tahoma" size="11" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Adicionar"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="btAdicionar" noResource="true"/>
       </Properties>
       <Events>
@@ -468,6 +472,7 @@
           <Font name="Tahoma" size="11" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Listar"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="btListar" noResource="true"/>
       </Properties>
       <Events>
