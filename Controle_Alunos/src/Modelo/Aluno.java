@@ -98,7 +98,7 @@ public class Aluno {
     }
     
     public void reajustarMensalidade(int per){
-        valor_mensalidade = valor_mensalidade + (per * valor_mensalidade);
+        valor_mensalidade = valor_mensalidade + ((per / 100) * valor_mensalidade);
     }
     
     public String toString(){

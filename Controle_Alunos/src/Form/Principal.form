@@ -153,6 +153,9 @@
         </Property>
         <Property name="name" type="java.lang.String" value="tfMatricula" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfMatriculaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btBuscar">
       <Properties>
@@ -163,6 +166,7 @@
           <Font name="Tahoma" size="11" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="btBuscar" noResource="true"/>
       </Properties>
       <Events>
@@ -457,6 +461,7 @@
           <Font name="Tahoma" size="11" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Remover"/>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="btRemover" noResource="true"/>
       </Properties>
       <Events>
@@ -472,7 +477,6 @@
           <Font name="Tahoma" size="11" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Listar"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="btListar" noResource="true"/>
       </Properties>
       <Events>
@@ -493,6 +497,9 @@
         <Property name="text" type="java.lang.String" value="Limpar"/>
         <Property name="name" type="java.lang.String" value="btLimpar" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLimparActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

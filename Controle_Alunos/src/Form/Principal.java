@@ -7,11 +7,15 @@ package Form;
 
 import Dados.BancoDadosCliente;
 import Modelo.Aluno;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -72,10 +76,16 @@ public class Principal extends javax.swing.JFrame {
         tfMatricula.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tfMatricula.setForeground(new java.awt.Color(255, 255, 0));
         tfMatricula.setName("tfMatricula"); // NOI18N
+        tfMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfMatriculaKeyTyped(evt);
+            }
+        });
 
         btBuscar.setBackground(new java.awt.Color(204, 204, 255));
         btBuscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btBuscar.setText("Buscar");
+        btBuscar.setEnabled(false);
         btBuscar.setName("btBuscar"); // NOI18N
         btBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,6 +239,7 @@ public class Principal extends javax.swing.JFrame {
         btRemover.setBackground(new java.awt.Color(204, 204, 255));
         btRemover.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btRemover.setText("Remover");
+        btRemover.setEnabled(false);
         btRemover.setName("btRemover"); // NOI18N
         btRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,7 +250,6 @@ public class Principal extends javax.swing.JFrame {
         btListar.setBackground(new java.awt.Color(204, 204, 255));
         btListar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btListar.setText("Listar");
-        btListar.setEnabled(false);
         btListar.setName("btListar"); // NOI18N
         btListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,6 +262,11 @@ public class Principal extends javax.swing.JFrame {
         btLimpar.setForeground(new java.awt.Color(255, 0, 0));
         btLimpar.setText("Limpar");
         btLimpar.setName("btLimpar"); // NOI18N
+        btLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimparActionPerformed(evt);
+            }
+        });
 
         taListar.setColumns(20);
         taListar.setRows(5);
@@ -365,38 +380,77 @@ public class Principal extends javax.swing.JFrame {
             aluno.setSenha(tfSenha.getText());
 
             banco.addAluno(aluno);
-            btListar.setEnabled(true);
-        }
+            JOptionPane.showMessageDialog(null, aluno.getNome() + " cadastrado com sucesso!", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+                        
+            grCurso.clearSelection();
+            cbPeriodo.setSelectedIndex(0);
+            taListar.setText("");
+        
+            for(int i=0; i<getContentPane().getComponentCount(); i++)
+            {
+                Component c = getContentPane().getComponent(i);
+                if(c instanceof JTextField)
+                {
+                    JTextField field = (JTextField)c;
+                    field.setText("");
+                }
+                if(c instanceof JPanel)
+                {
+                    JPanel p = (JPanel)c;
+                    for(int j=0; j<p.getComponentCount(); j++)
+                    {
+                        Component c2 = p.getComponent(j);
+                        if(c2 instanceof JTextField)
+                        {
+                            JTextField field = (JTextField)c2;
+                            field.setText("");
+                        }
+                    }
+                }
+            }
+            btAdicionar.setEnabled(false);
+            btBuscar.setEnabled(false);
+            tfMatricula.requestFocus();
     }//GEN-LAST:event_btAdicionarActionPerformed
-
-    private void btReajusteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReajusteActionPerformed
-        String resultado;
-        resultado = JOptionPane.showInputDialog(null, "Informe o valor!");
-        aluno.reajustarMensalidade(Integer.parseInt(resultado));
-        JOptionPane.showMessageDialog(null, "A mensalidade é " + aluno.getValor_mensalidade(), "Mensalidade", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btReajusteActionPerformed
-
+}
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        Aluno res;
-        res = banco.getAluno(Integer.parseInt(tfMatricula.getText()));
-        if(res != null){
-            JOptionPane.showMessageDialog(null, res.toString(), "Informação do aluno", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(null, "Não existe este aluno cadastrado!", "Informação do aluno", JOptionPane.INFORMATION_MESSAGE);
+        if(!tfMatricula.getText().isEmpty() && tfMatricula.getText().trim() != null){
+            btRemover.setEnabled(false);
+            Aluno res;
+            res = banco.getAluno(Integer.parseInt(tfMatricula.getText()));
+            if(res != null){
+                JOptionPane.showMessageDialog(null, res.toString(), "Informação do aluno", JOptionPane.INFORMATION_MESSAGE);
+                btRemover.setEnabled(true);
+            }else{
+                JOptionPane.showMessageDialog(null, "Não existe este aluno cadastrado!", "Informação do aluno", JOptionPane.INFORMATION_MESSAGE);
+            }
+            tfMatricula.requestFocus();
         }
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-        banco.removeAluno(banco.getAluno(Integer.parseInt(tfMatricula.getText())));
-        JOptionPane.showMessageDialog(null, aluno.getNome() + " removido com sucesso!", "Remoção de aluno", JOptionPane.INFORMATION_MESSAGE);
+        Aluno res;
+        int conf;
+        res = banco.getAluno(Integer.parseInt(tfMatricula.getText()));
+        conf = JOptionPane.showConfirmDialog(null, "Deseja mesmo remover o aluno " + res.getNome() + "?", "Confirmação de Remoção", JOptionPane.YES_NO_OPTION);
+        if(conf == 0){
+            banco.removeAluno(res);
+            JOptionPane.showMessageDialog(null, res.getNome() + " removido com sucesso!", "Remoção de aluno", JOptionPane.INFORMATION_MESSAGE);
+            btRemover.setEnabled(false);
+        }
     }//GEN-LAST:event_btRemoverActionPerformed
 
     private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
         List<Aluno> res;
+        String lista = "";
         res = banco.getAlunos();
-        JOptionPane.showMessageDialog(null, res.size(), "Aluno", JOptionPane.INFORMATION_MESSAGE);
         for(Aluno a : res){
-            taListar.setText(a.toString());
+            lista = lista + a.toString() + "\n\n";
+        }
+        if(lista == ""){
+            JOptionPane.showMessageDialog(null, "Não existem alunos cadastrados!", "Remoção de aluno", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            taListar.setText(lista);
         }
     }//GEN-LAST:event_btListarActionPerformed
 
@@ -405,6 +459,51 @@ public class Principal extends javax.swing.JFrame {
             btAdicionar.setEnabled(true);
         }
     }//GEN-LAST:event_tfSenhaKeyTyped
+
+    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+        grCurso.clearSelection();
+            cbPeriodo.setSelectedIndex(0);
+            taListar.setText("");
+        
+            for(int i=0; i<getContentPane().getComponentCount(); i++)
+            {
+                Component c = getContentPane().getComponent(i);
+                if(c instanceof JTextField)
+                {
+                    JTextField field = (JTextField)c;
+                    field.setText("");
+                }
+                if(c instanceof JPanel)
+                {
+                    JPanel p = (JPanel)c;
+                    for(int j=0; j<p.getComponentCount(); j++)
+                    {
+                        Component c2 = p.getComponent(j);
+                        if(c2 instanceof JTextField)
+                        {
+                            JTextField field = (JTextField)c2;
+                            field.setText("");
+                        }
+                    }
+                }
+            }
+            btAdicionar.setEnabled(false);
+            btBuscar.setEnabled(false);
+            tfMatricula.requestFocus();
+    }//GEN-LAST:event_btLimparActionPerformed
+
+    private void btReajusteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReajusteActionPerformed
+        String resultado;
+        resultado = JOptionPane.showInputDialog(null, "Informe o valor!");
+        aluno.reajustarMensalidade(Integer.parseInt(resultado));
+        JOptionPane.showMessageDialog(null, "A mensalidade é " + aluno.getValor_mensalidade(), "Mensalidade", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btReajusteActionPerformed
+
+    private void tfMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfMatriculaKeyTyped
+        if(tfMatricula.getText().length() > 0){
+            btBuscar.setEnabled(true);
+        }
+    }//GEN-LAST:event_tfMatriculaKeyTyped
 
     /**
      * @param args the command line arguments
