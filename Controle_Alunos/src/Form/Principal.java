@@ -358,7 +358,8 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pack();
+        setSize(new java.awt.Dimension(460, 578));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
@@ -419,10 +420,10 @@ public class Principal extends javax.swing.JFrame {
             Aluno res;
             res = banco.getAluno(Integer.parseInt(tfMatricula.getText()));
             if(res != null){
-                JOptionPane.showMessageDialog(null, res.toString(), "Informação do aluno", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, res.toString(), "Informações do aluno", JOptionPane.INFORMATION_MESSAGE);
                 btRemover.setEnabled(true);
             }else{
-                JOptionPane.showMessageDialog(null, "Não existe este aluno cadastrado!", "Informação do aluno", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Não existe esta matrícula cadastrada!!", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
             }
             tfMatricula.requestFocus();
         }
@@ -448,7 +449,7 @@ public class Principal extends javax.swing.JFrame {
             lista = lista + a.toString() + "\n\n";
         }
         if(lista == ""){
-            JOptionPane.showMessageDialog(null, "Não existem alunos cadastrados!", "Remoção de aluno", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não existem alunos cadastrados!", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
         }else{
             taListar.setText(lista);
         }
